@@ -1,0 +1,116 @@
+@import "seattletimes";
+
+@keyframes flicker-on {
+  0%, 9%, 13%, 19%, 23%, 40% { opacity: 0 }
+  10%, 11%, 20%, 21%, 100% { opacity: 1 }
+}
+
+@keyframes flicker-color {
+  0%, 7%, 15%, 17%, 25%, 37%, 45%, 60% { stroke: @df-middle-gray }
+  10%, 11%, 20%, 21%, 40%, 41%, 100% { stroke: inherit }
+}
+
+@keyframes sail-step {
+  0% { opacity: 1 }
+  14% { opacity: 1 }
+  100% { opacity: 0 }
+}
+
+.svg-container {
+  position: relative;
+  max-width: 800px;
+  margin: auto;
+
+  &::before {
+    display: block;
+    content: "";
+    padding-bottom: percentage(334.48 / 1214.86);
+  }
+
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+
+  #Water_line_glow,
+  #Smith_Tower_glow,
+  #_2016_glow,
+  #Merry_Christmas_together_glow,
+  #Both_cranes_glow,
+  #Mountain_Skyline_glow {
+    opacity: 0;
+    display: none;
+  }
+
+  #Merry_Christmas_together {
+    display:none;
+  }
+
+
+  #Both_cranes,
+  #Water_line,
+  #Mountain_Skyline,
+  #Smith_Tower,
+  #Merry,
+  #Christmas,
+  #_2016 {
+    path, line, circle, polyline, polygon {
+      transition: all .2s linear;
+      stroke-dasharray: 99999 99999;
+      stroke-dashoffset: 99999;
+      opacity: .01;
+      // stroke: @df-dark-gray;
+    }
+  }
+
+  [id^="Boat"], [id^="Star"] {
+    opacity: 0;
+  }
+}
+
+.warm {
+  @time: 2s;
+
+  // #Water_line_glow,
+  // #Smith_Tower_glow,
+  #_2016_glow,
+  #Merry_Christmas_together_glow,
+  // #Both_cranes_glow,
+  // #Mountain_Skyline_glow
+  {
+    display: inherit;
+    animation: flicker-on @time forwards;
+  }
+
+  #Both_cranes,
+  #Water_line,
+  #Mountain_Skyline,
+  #Smith_Tower,
+  #Merry,
+  #Christmas,
+  #_2016 {
+    path, polyline, circle, line {
+      // animation: flicker-color @time forwards;
+    }
+  }
+
+  .sailing(@index) {
+    #Boat_Position_@{index},
+    #Star_@{index} {
+      animation: sail-step 3.5s step-start unit(@index * .5 + @time, s) infinite;
+    }
+  }
+
+  .sailing(1);
+  .sailing(2);
+  .sailing(3);
+  .sailing(4);
+  .sailing(5);
+  .sailing(6);
+  .sailing(7);
+
+}
